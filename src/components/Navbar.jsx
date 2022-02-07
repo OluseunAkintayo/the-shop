@@ -1,0 +1,159 @@
+import styled from 'styled-components';
+import { MenuOpen, Search, ShoppingCartOutlined } from '@material-ui/icons';
+import { Badge } from '@material-ui/core';
+
+const Wrapper = styled.div`
+padding: 0.75rem 1rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+`;
+
+// left content start
+const LeftContent = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
+
+const Logo = styled.div`
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
+// left content end
+
+// mid content start
+const MidContent = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SearchComponent = styled.div`
+  display: flex;
+  border: 1px solid lightgray;
+  padding: 0.375rem;
+  margin-left: 1.5rem;
+  border-radius: 0.25rem;
+  .search-icon {
+    color: lightgray;
+  }
+`;
+
+const Input = styled.input`
+  border: none;
+  outline: none;
+`;
+// mid content end
+
+// right content start
+const RightContent = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const Language = styled.div`
+  font-size: 14px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6);
+  padding-right: 0.25rem;
+  &:hover{
+    color: rgba(0, 0, 0, 0.4);
+  }
+`;
+
+const LinkItem = styled.div`
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 0 0.25rem;
+  &:hover{
+    color: rgba(0, 0, 0, 0.4);
+  }
+`;
+// right content end
+
+const MobileMenu = styled.div`
+  display: none !important;
+  align-items: center;
+  @media(max-width: 625px) {
+    display: flex !important;
+  }
+`;
+
+const Links = styled.div`
+  font-size: 0.8rem;
+  box-shadow: -2px 1px 5px 1px rgba(58,58,58,0.5);
+  /* -webkit-box-shadow: -2px 1px 5px 1px rgba(58,58,58,1);
+  -moz-box-shadow: -2px 1px 5px 1px rgba(58,58,58,1); */
+  position: absolute;
+  top: 4.75rem;
+  right: 0.5rem;
+  z-index: 5;
+  width: 100px;
+  background: whitesmoke;
+  .mobile-item {
+    padding: 0.5rem;
+  }
+`;
+
+const NavContainer = styled.nav`
+  height: 60px;
+  potition: relative;
+  @media(max-width: 625px) {
+    ${RightContent}, ${MidContent} {
+      display: none;
+    }
+  }
+`;
+
+
+const Navbar = ({ open, setOpen }) => {
+  return (
+    <NavContainer>
+      <Wrapper>
+        <LeftContent>
+          <Logo>The Shop</Logo>
+        </LeftContent>
+        <MidContent>
+          <SearchComponent>
+            <Input type="text" placeholder='Search...' />
+            <Search className='search-icon' />
+          </SearchComponent>
+        </MidContent>
+        <RightContent>
+          <LinkItem style={{ margin: '0 0.75rem' }}>
+            <Badge badgeContent={9} color="secondary">
+              <ShoppingCartOutlined />
+            </Badge>
+          </LinkItem>
+          <Language className='menu'>EN</Language>
+          <LinkItem className='menu'>Login</LinkItem>
+          <LinkItem className='menu'>Register</LinkItem>
+        </RightContent>
+        <MobileMenu>
+          <LinkItem>
+            <Badge badgeContent={9} color="secondary">
+              <ShoppingCartOutlined />
+            </Badge>
+          </LinkItem>
+          <LinkItem className='mobile-item' style={{ marginLeft: 10 }} onClick={() => setOpen(!open)}>
+            <MenuOpen className='mobile-item' />
+          </LinkItem>
+          <Links style={{ display: `${open ? "block" : "none"}` }} id="links">
+            <LinkItem className='mobile-item'>Lang: EN</LinkItem>
+            <LinkItem className='mobile-item'>Favorites</LinkItem>
+            <LinkItem className='mobile-item'>Login</LinkItem>
+            <LinkItem className='mobile-item'>Register</LinkItem>
+          </Links>
+        </MobileMenu>
+      </Wrapper>
+    </NavContainer>
+  );
+};
+
+export default Navbar;
