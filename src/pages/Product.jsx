@@ -24,6 +24,9 @@ const ItemDetails = styled.div`
   display: flex;
   align-items: center;
   margin-top: 2rem;
+  @media(max-width: 625px) {
+    flex-direction: column;
+  }
 `;
 const ImageContainer = styled.div`
   flex: 1;
@@ -40,11 +43,28 @@ const Image = styled.img`
 const InfoContainer = styled.div`
   flex: 1;
   padding: 1rem;
+  .desc {
+    display: flex;
+    align-items: center;
+    /* background: pink; */
+  }
 `;
 const Desc = styled.p`
   line-height: 1.75rem;
 `;
 const ItemRating = styled.div``;
+const Price = styled.div`
+  width: 6.5rem;
+  height: 2.5rem;
+  background: teal;
+  outline: none;
+  font-weight: 500;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2rem;
+`;
 const Progress = styled.div`
   display: flex;
   align-items: center;
@@ -94,7 +114,10 @@ const Product = () => {
             </ImageContainer>
             <InfoContainer>
               <Desc>{product.description}</Desc>
-              <Button>Add to Cart</Button>
+              <div className='desc'>
+                <Price>N {product.price}</Price>
+                <Button>Add to Cart</Button>
+              </div>
             </InfoContainer>
           </ItemDetails>
         </ProductWrapper>

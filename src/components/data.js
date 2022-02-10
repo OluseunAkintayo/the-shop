@@ -14,7 +14,7 @@ export const slides = [
   {
     id: 3,
     title: "Wireless Charger",
-    desc: "Super fast wireless charging for iPhone",
+    desc: "Experience super-fast wireless charging for smartphones.",
     image: "https://www.mytrendyphone.eu/images/Original-Samsung-EP-P1100BBEGWW-Fast-Charge-Wireless-Charger-Pad-Slim-Black-8801643498597-14122018-01-p.jpg"
   },
 ];

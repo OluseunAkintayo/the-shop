@@ -49,7 +49,7 @@ const Subscribe = () => {
       <Desc>Receive notifications about exciting offers, new arrivals, coupons and more</Desc>
       <FormContainer>
         <Input placeholder='Email address' />
-        <Button style={{ height: '100%', padding: '0 0.75rem', margin: 0, border: 'none',  }}><MailOutline /></Button>
+        <Button style={{ height: '100%', margin: 0, border: 'none', width: '4rem'  }}><MailOutline /></Button>
       </FormContainer>
     </Container>
   )
