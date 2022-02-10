@@ -15,6 +15,7 @@ const Progress = styled.div`
   align-items: center;
   justify-content: center;
   height: 20vh;
+  width: 100%;
 `;
 
 const Products = () => {

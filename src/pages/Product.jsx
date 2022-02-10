@@ -1,15 +1,62 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { CircularProgress } from '@material-ui/core';
 import Navbar from '../components/Navbar';
+import Subscribe from '../components/Subscribe';
+import Footer from '../components/Footer';
+import Button from '../components/Button';
 
-const Container = styled.section`
+const ProductWrapper = styled.section`
+  padding: 2rem 1rem;
+`;
+const Title = styled.h1`
+  font-size: 2rem;
+  text-align: center;
+  color: rgba(0,0,0,0.6);
+`;
+const Category = styled.h3`
+  text-align: center;
+  color: rgba(0,0,0,0.4);
+  text-transform: capitalize;
+`;
+const ItemDetails = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+`;
+const ImageContainer = styled.div`
+  flex: 1;
+  height: 100%;
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+`;
+const Image = styled.img`
+  max-height: 90%;
+  max-width: 100%;
+  object-fit: contain;
+`;
+const InfoContainer = styled.div`
+  flex: 1;
   padding: 1rem;
 `;
+const Desc = styled.p`
+  line-height: 1.75rem;
+`;
+const ItemRating = styled.div``;
+const Progress = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  width: 100%;
+`;
+
 
 const Product = () => {
   const [loading, setLoading] = React.useState(false);
-  const [product, setProduct] = React.useState([]);
+  const [product, setProduct] = React.useState({});
 
   const { productId } = useParams();
   console.log(productId);
@@ -32,14 +79,28 @@ const Product = () => {
     getProduct(productId);
   }, [productId]);
 
-  console.log(product);
-
   return (
     <>
       <Navbar />
-      <Container>
-        product
-      </Container>
+      {
+        loading === true ? <Progress><CircularProgress size="5rem" /></Progress>
+        :
+        <ProductWrapper>
+          <Title>{product.title}</Title>
+          <Category>{product.category}</Category>
+          <ItemDetails>
+            <ImageContainer>
+              <Image src={product.image} alt="" />
+            </ImageContainer>
+            <InfoContainer>
+              <Desc>{product.description}</Desc>
+              <Button>Add to Cart</Button>
+            </InfoContainer>
+          </ItemDetails>
+        </ProductWrapper>
+      }
+      <Subscribe />
+      <Footer />
     </>
   )
 };

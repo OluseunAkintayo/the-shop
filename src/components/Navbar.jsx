@@ -55,6 +55,8 @@ const RightContent = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  font-weight: 500;
+  font-size: 0.875rem;
 `;
 
 const Language = styled.div`

@@ -31,14 +31,14 @@ const Container = styled.div`
     opacity: 1;
   }
 `;
-const Circle = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  position: absolute;
-  background-color: khaki;
-  /* z-index: 2; */
-`;
+// const Circle = styled.div`
+//   width: 200px;
+//   height: 200px;
+//   border-radius: 50%;
+//   position: absolute;
+//   background-color: khaki;
+//   /* z-index: 2; */
+// `;
 
 const Image = styled.img`
   height: 70%;
