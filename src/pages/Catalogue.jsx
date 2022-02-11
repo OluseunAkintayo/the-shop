@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
-// import Categories from '../components/Categories';
+import Categories from '../components/Categories';
 import Products from '../components/Products';
 import Subscribe from '../components/Subscribe';
 import Footer from '../components/Footer';
+import SliderII from '../components/Slider';
 
 const Container = styled.div`
 
@@ -16,6 +17,9 @@ const FilterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   color: rgba(0,0,0,0.6);
+  @media(max-width: 625px) {
+    flex-direction: column;
+  }
 `;
 const Filter = styled.div`
   margin: 1rem;
@@ -41,6 +45,8 @@ const Catalogue = () => {
   return (
     <Container>
       <Navbar />
+      <SliderII />
+      <Categories />
       <Title>Products</Title>
       <FilterWrapper>
         <Filter>
@@ -69,4 +75,4 @@ const Catalogue = () => {
   )
 }
 
-export default Catalogue;
+export default Catalogue; 

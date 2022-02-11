@@ -22,9 +22,7 @@ const Left = styled.div`
   }
 `;
 
-const Logo = styled.h1`
-  
-`;
+const Logo = styled.h1``;
 
 const Socials = styled.div`
   display: flex;

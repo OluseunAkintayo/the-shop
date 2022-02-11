@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { MenuOpen, Search, ShoppingCartOutlined } from '@material-ui/icons';
 import { Badge } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
-padding: 0.75rem 1rem;
-display: flex;
-align-items: center;
-justify-content: space-between;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 // left content start
@@ -134,8 +135,8 @@ const Navbar = ({ open, setOpen }) => {
             </Badge>
           </LinkItem>
           <Language className='menu'>EN</Language>
-          <LinkItem className='menu'>Login</LinkItem>
-          <LinkItem className='menu'>Register</LinkItem>
+          <LinkItem className='menu'><Link to='/shop/auth'>Login</Link></LinkItem>
+          <LinkItem className='menu'><Link to='/shop/register'>Register</Link></LinkItem>
         </RightContent>
         <MobileMenu>
           <LinkItem>
@@ -149,8 +150,8 @@ const Navbar = ({ open, setOpen }) => {
           <Links style={{ display: `${open ? "block" : "none"}` }} id="links">
             <LinkItem className='mobile-item'>Lang: EN</LinkItem>
             <LinkItem className='mobile-item'>Favorites</LinkItem>
-            <LinkItem className='mobile-item'>Login</LinkItem>
-            <LinkItem className='mobile-item'>Register</LinkItem>
+            <LinkItem className='mobile-item'><Link to='/shop/auth'>Login</Link></LinkItem>
+            <LinkItem className='mobile-item'><Link to='/shop/register'>Register</Link></LinkItem>
           </Links>
         </MobileMenu>
       </Wrapper>
