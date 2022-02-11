@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { TextField, Checkbox, FormControlLabel } from '@material-ui/core'
+import { Link } from 'react-router-dom';
+import { Checkbox, FormControlLabel } from '@material-ui/core'
 import Button from '../components/Button';
 
 const PageWrapper = styled.section`
@@ -47,8 +47,7 @@ const Input = styled.input`
 
   }
 `;
-const Agreement = styled.span``;
-
+// const Agreement = styled.span``;
 
 const Signup = () => {
   const [values, setValues] = React.useState({

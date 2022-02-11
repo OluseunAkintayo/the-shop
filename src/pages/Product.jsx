@@ -104,9 +104,9 @@ const QtyWrapper = styled.div`
   margin: 1rem 2.5rem 1rem 0;
   .qtyActionIcon {
     color: teal;
-    border: 1px solid teal;
-    height: 2.375rem;
-    width: 2.5rem;
+    /* border: 1px solid teal; */
+    /* height: 2.375rem;
+    width: 2.5rem; */
     cursor: pointer;
     transition: ease-in-out 0.2s;
     &:hover {
@@ -147,6 +147,7 @@ const Product = () => {
   }
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     getProduct(productId);
   }, [productId]);
 

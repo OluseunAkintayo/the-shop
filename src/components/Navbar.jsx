@@ -120,7 +120,9 @@ const Navbar = ({ open, setOpen }) => {
     <NavContainer>
       <Wrapper>
         <LeftContent>
-          <Logo>The Shop</Logo>
+          <Link to='/'>
+            <Logo>The Shop</Logo>
+          </Link>
         </LeftContent>
         <MidContent>
           <SearchComponent>
@@ -130,9 +132,11 @@ const Navbar = ({ open, setOpen }) => {
         </MidContent>
         <RightContent>
           <LinkItem style={{ margin: '0 0.75rem' }}>
-            <Badge badgeContent={9} color="secondary">
-              <ShoppingCartOutlined />
-            </Badge>
+            <Link to='/shop/checkout'>
+              <Badge badgeContent={9} color="secondary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </Link>
           </LinkItem>
           <Language className='menu'>EN</Language>
           <LinkItem className='menu'><Link to='/shop/auth'>Login</Link></LinkItem>

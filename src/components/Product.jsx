@@ -1,6 +1,7 @@
 import { AddShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons';
 import styled from 'styled-components';
 import { Tooltip } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 
 const Info = styled.div`
   background: rgba(0,0,0,0.15);
@@ -107,17 +108,18 @@ const Price = styled.div`
 `;
 
 const Product = ({ item, findItem }) => {
+  const navigate = useNavigate();
   return (
-    <Container onClick={() => findItem(item.id)}>
+    <Container onClick={() => navigate(`/products/${item.id}`)}>
       {/* <Circle /> */}
       <Image src={item.image} />
       <Info>
         <Tooltip title="Add to cart">
-          <Icon>
+          <Icon onClick={() => findItem(item.id)}>
             <AddShoppingCartOutlined className="icon" />
           </Icon>
         </Tooltip>
-        <Tooltip title="Add to favorites">
+        <Tooltip title="Add to wishlist">
           <Icon>
             <FavoriteBorderOutlined className="icon" />
           </Icon>

@@ -26,8 +26,13 @@ const Products = () => {
     setLoading(true);
     try {
       await fetch(URL).then(res => res.json()).then(result => {
-        console.log(result);
-        setItems(result);
+        let newProducts = result.map(item => {
+          return {
+            ...item, added: 0
+          }
+        })
+        setItems(newProducts);
+        console.log(newProducts);
         setLoading(false);
       })
     } catch (error) {
@@ -40,10 +45,22 @@ const Products = () => {
     getProducts(productsUrl);
   }, []);
 
+  let cart = JSON.parse(localStorage.getItem("the-cart")) || [];
+
   const findItem = id => {
-    let item = items.find(item => item.id === id)
-    console.log(item);
-  }
+    let cartItem = cart.find(item => item.id === id);
+    const cartItemIndex = cart.indexOf(cartItem);
+    if(cartItem) {
+      cartItem = { ...cartItem, added: cartItem.added + 1 };
+      cart[cartItemIndex] = cartItem;
+    } else {
+      let newItem = items.find(item => item.id === id);
+      newItem = { ...newItem, added: newItem.added + 1 };
+      cart = [...cart, newItem];
+    }
+    console.log(cart);
+    localStorage.setItem("the-cart", JSON.stringify(cart));
+  };
 
   return (
     <Container>
