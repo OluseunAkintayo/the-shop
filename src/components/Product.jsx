@@ -106,9 +106,9 @@ const Price = styled.div`
   color: #fff;
 `;
 
-const Product = ({ item }) => {
+const Product = ({ item, findItem }) => {
   return (
-    <Container>
+    <Container onClick={() => findItem(item.id)}>
       {/* <Circle /> */}
       <Image src={item.image} />
       <Info>

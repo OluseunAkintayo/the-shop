@@ -130,6 +130,7 @@ const Product = () => {
   const [orderQty, setOrderQty] = React.useState(1);
   const { productId } = useParams();
   const sizes = ["XS", "S", "M", "L", "XL"];
+
   const getProduct = async (id) => {
     setLoading(true);
     const productUrl = `https://fakestoreapi.com/products/${id}`;

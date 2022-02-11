@@ -40,11 +40,16 @@ const Products = () => {
     getProducts(productsUrl);
   }, []);
 
+  const findItem = id => {
+    let item = items.find(item => item.id === id)
+    console.log(item);
+  }
+
   return (
     <Container>
       {
         loading === true ? <Progress><CircularProgress size="5rem" /></Progress>
-        : items.map(item => <Product item={item} key={item.id} />)
+        : items.map(item => <Product item={item} key={item.id} findItem={findItem} />)
       }
     </Container>
   );
