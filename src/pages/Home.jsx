@@ -8,12 +8,10 @@ import Subscribe from '../components/Subscribe';
 import Footer from '../components/Footer';
 
 const Home = () => {
-  const [open, setOpen] = React.useState(false);
-
   return (
     <div>
       <Broadcast />
-      <Navbar open={open} setOpen={setOpen} />
+      <Navbar />
       <Slider />
       <Categories />
       <Products />

@@ -7,7 +7,7 @@ const Info = styled.div`
   background: rgba(0,0,0,0.15);
   position: absolute;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,7 +27,6 @@ const Container = styled.div`
   justify-content: center;
   cursor: pointer;
   position: relative;
-
   &:hover ${Info} {
     opacity: 1;
   }
@@ -47,13 +46,14 @@ const Image = styled.img`
   object-fit: contain;
   z-index: 2;
 `;
-
 const Icon = styled.div`
   cursor: pointer;
   background: white;
   margin: 0.5rem;
   width: 3rem;
   height: 3rem;
+  position: relative;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,9 +110,9 @@ const Price = styled.div`
 const Product = ({ item, findItem }) => {
   const navigate = useNavigate();
   return (
-    <Container onClick={() => navigate(`/products/${item.id}`)}>
+    <Container>
       {/* <Circle /> */}
-      <Image src={item.image} />
+      <Image src={item.image} onClick={() => navigate(`/products/${item.id}`)} />
       <Info>
         <Tooltip title="Add to cart">
           <Icon onClick={() => findItem(item.id)}>

@@ -23,7 +23,7 @@ const FormContainer = styled.div`
   background: #fff;
   padding: 1rem;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
 `;
 const Form = styled.div``;
 const Title = styled.h1`

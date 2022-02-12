@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { MenuOpen, Search, ShoppingCartOutlined } from '@material-ui/icons';
 import { Badge } from '@material-ui/core';
@@ -94,8 +95,8 @@ const Links = styled.div`
   /* -webkit-box-shadow: -2px 1px 5px 1px rgba(58,58,58,1);
   -moz-box-shadow: -2px 1px 5px 1px rgba(58,58,58,1); */
   position: absolute;
-  top: 4.75rem;
-  right: 0.5rem;
+  top: 3rem;
+  right: 0.25rem;
   z-index: 5;
   width: 100px;
   background: whitesmoke;
@@ -115,12 +116,13 @@ const NavContainer = styled.nav`
 `;
 
 
-const Navbar = ({ open, setOpen }) => {
+const Navbar = () => {
+  const [open, setOpen] = React.useState(false);
   return (
     <NavContainer>
       <Wrapper>
         <LeftContent>
-          <Link to='/'>
+          <Link to="/">
             <Logo>The Shop</Logo>
           </Link>
         </LeftContent>
@@ -131,31 +133,33 @@ const Navbar = ({ open, setOpen }) => {
           </SearchComponent>
         </MidContent>
         <RightContent>
-          <LinkItem style={{ margin: '0 0.75rem' }}>
-            <Link to='/shop/checkout'>
+          <Link to="/shop/checkout">
+            <LinkItem style={{ margin: '0 0.75rem' }}>
               <Badge badgeContent={9} color="secondary">
                 <ShoppingCartOutlined />
               </Badge>
-            </Link>
-          </LinkItem>
+            </LinkItem>
+          </Link>
           <Language className='menu'>EN</Language>
-          <LinkItem className='menu'><Link to='/shop/auth'>Login</Link></LinkItem>
-          <LinkItem className='menu'><Link to='/shop/register'>Register</Link></LinkItem>
+          <Link to='/shop/auth'><LinkItem className='menu'>Login</LinkItem></Link>
+          <Link to='/shop/register'><LinkItem className='menu'>Register</LinkItem></Link>
         </RightContent>
         <MobileMenu>
-          <LinkItem>
-            <Badge badgeContent={9} color="secondary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </LinkItem>
+          <Link to="/shop/checkout">
+            <LinkItem style={{ margin: '0 0.75rem' }}>
+              <Badge badgeContent={9} color="secondary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </LinkItem>
+          </Link>
           <LinkItem className='mobile-item' style={{ marginLeft: 10 }} onClick={() => setOpen(!open)}>
             <MenuOpen className='mobile-item' />
           </LinkItem>
           <Links style={{ display: `${open ? "block" : "none"}` }} id="links">
             <LinkItem className='mobile-item'>Lang: EN</LinkItem>
-            <LinkItem className='mobile-item'>Favorites</LinkItem>
-            <LinkItem className='mobile-item'><Link to='/shop/auth'>Login</Link></LinkItem>
-            <LinkItem className='mobile-item'><Link to='/shop/register'>Register</Link></LinkItem>
+            <Link to ='/'><LinkItem className='mobile-item'>Favorites</LinkItem></Link>
+            <Link to='/shop/auth'><LinkItem className='mobile-item'>Login</LinkItem></Link>
+            <Link to='/shop/register'><LinkItem className='mobile-item'>Register</LinkItem></Link>
           </Links>
         </MobileMenu>
       </Wrapper>
