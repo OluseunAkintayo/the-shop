@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { loadItem } from '../redux/actions';
+import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 import Navbar from '../components/Navbar';
 import Subscribe from '../components/Subscribe';
@@ -124,7 +126,7 @@ const Input = styled.input`
   outline: 1px solid teal;
 `;
 
-const Product = () => {
+const Product = (props) => {
   const [loading, setLoading] = React.useState(false);
   const [product, setProduct] = React.useState({});
   const [orderQty, setOrderQty] = React.useState(1);
@@ -139,12 +141,15 @@ const Product = () => {
       .then(result => {
         setLoading(false);
         setProduct(result);
+        props.getItem(result);
       })
       .catch(err => {
         setLoading(false);
         console.log(err);
       });
   }
+
+  console.log(props);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -199,4 +204,16 @@ const Product = () => {
   )
 };
 
-export default Product;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getItem: (item) => dispatch(loadItem(item)),
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    product: state.shop.item
+  }
+}
+
+export default connect(mapStateToProps ,mapDispatchToProps)(Product);

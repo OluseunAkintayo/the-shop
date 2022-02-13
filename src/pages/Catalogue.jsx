@@ -28,7 +28,6 @@ const FilterText = styled.span`
   font-size: 1.125rem;
   font-weight: 500;
 `;
-
 const Select = styled.select`
   margin-left: 0.25rem;
   padding: 0.125rem;
@@ -45,8 +44,8 @@ const Catalogue = () => {
   return (
     <Container>
       <Navbar />
-      <SliderII />
-      <Categories />
+      {/* <SliderII />
+      <Categories /> */}
       <Title>Products</Title>
       <FilterWrapper>
         <Filter>

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { CircularProgress } from '@material-ui/core';
+import { loadItems } from '../redux/actions';
+import { connect } from 'react-redux';
 
 const Container = styled.div`
   padding: 1rem;
@@ -9,7 +11,6 @@ const Container = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
 `;
-
 const Progress = styled.div`
   display: flex;
   align-items: center;
@@ -18,7 +19,10 @@ const Progress = styled.div`
   width: 100%;
 `;
 
-const Products = () => {
+const Products = (props) => {
+  console.log(props);
+  const { getItems } = props;
+  // const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const productsUrl = "https://fakestoreapi.com/products";
@@ -32,6 +36,7 @@ const Products = () => {
           }
         })
         setItems(newProducts);
+        getItems(newProducts);
         console.log(newProducts);
         setLoading(false);
       })
@@ -72,4 +77,16 @@ const Products = () => {
   );
 };
 
-export default Products;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getItems: (items) => dispatch(loadItems(items)),
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    products: state.shop.items
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

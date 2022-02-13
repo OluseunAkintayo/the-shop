@@ -118,6 +118,17 @@ const NavContainer = styled.nav`
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
+  const [count, setCount] = React.useState(0);
+  // let cart = JSON.parse(localStorage.getItem("the-cart"));
+
+  // React.useEffect(() => {
+  //   let init = 0;
+  //   cart.forEach(item => {
+  //     init += item.added
+  //   });
+  //   setCount(init);
+  // }, [cart, count]);
+
   return (
     <NavContainer>
       <Wrapper>
@@ -135,7 +146,7 @@ const Navbar = () => {
         <RightContent>
           <Link to="/shop/checkout">
             <LinkItem style={{ margin: '0 0.75rem' }}>
-              <Badge badgeContent={9} color="secondary">
+              <Badge badgeContent={2} color="secondary">
                 <ShoppingCartOutlined />
               </Badge>
             </LinkItem>
@@ -147,7 +158,7 @@ const Navbar = () => {
         <MobileMenu>
           <Link to="/shop/checkout">
             <LinkItem style={{ margin: '0 0.75rem' }}>
-              <Badge badgeContent={9} color="secondary">
+              <Badge badgeContent={2} color="secondary">
                 <ShoppingCartOutlined />
               </Badge>
             </LinkItem>
