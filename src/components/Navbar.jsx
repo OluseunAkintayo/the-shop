@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MenuOpen, Search, ShoppingCartOutlined } from '@material-ui/icons';
 import { Badge } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const Wrapper = styled.div`
   padding: 0.75rem 1rem;
@@ -116,18 +117,17 @@ const NavContainer = styled.nav`
 `;
 
 
-const Navbar = () => {
+const Navbar = ({ bag }) => {
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = React.useState(0);
-  // let cart = JSON.parse(localStorage.getItem("the-cart"));
 
-  // React.useEffect(() => {
-  //   let init = 0;
-  //   cart.forEach(item => {
-  //     init += item.added
-  //   });
-  //   setCount(init);
-  // }, [cart, count]);
+  React.useEffect(() => {
+    let init = 0;
+    bag.forEach(item => {
+      init += item.added
+    });
+    setCount(init);
+  }, [bag, count]);
 
   return (
     <NavContainer>
@@ -146,19 +146,19 @@ const Navbar = () => {
         <RightContent>
           <Link to="/shop/checkout">
             <LinkItem style={{ margin: '0 0.75rem' }}>
-              <Badge badgeContent={2} color="secondary">
+              <Badge badgeContent={count} color="secondary">
                 <ShoppingCartOutlined />
               </Badge>
             </LinkItem>
           </Link>
-          <Language className='menu'>EN</Language>
+          {/* <Language className='menu'>EN</Language> */}
           <Link to='/shop/auth'><LinkItem className='menu'>Login</LinkItem></Link>
           <Link to='/shop/register'><LinkItem className='menu'>Register</LinkItem></Link>
         </RightContent>
         <MobileMenu>
           <Link to="/shop/checkout">
             <LinkItem style={{ margin: '0 0.75rem' }}>
-              <Badge badgeContent={2} color="secondary">
+              <Badge badgeContent={count} color="secondary">
                 <ShoppingCartOutlined />
               </Badge>
             </LinkItem>
@@ -178,4 +178,10 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = state => {
+  return {
+    bag: state.shop.cart
+  }
+}
+
+export default connect(mapStateToProps)(Navbar);

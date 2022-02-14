@@ -14,13 +14,16 @@ const reducer = (state=init.shop, { type, payload }) => {
       return { ...state, items: payload }
     case "GET_ITEM":
       return { ...state, item: payload }
-    case "ADD_TO_CART":
-      let cartItem = state.shop.cart.find(item => item.id === payload.id);
+    case "GET_CART":
+      return { ...state, cart: payload }
+    case "REMOVE_FROM_CART":
       return {
         ...state,
-        cart: []
+        cart: state.cart.filter(item => item.id !== payload.itemId)
       }
-    default: return state
+    case "CLEAR_CART" :
+      return { ...state, cart: [] }
+    default: return state;
   }
 }
 

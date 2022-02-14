@@ -1,7 +1,9 @@
 import { AddShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { Tooltip } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
+import { addToCart } from '../redux/actions';
 
 const Info = styled.div`
   background: rgba(0,0,0,0.15);
@@ -107,7 +109,7 @@ const Price = styled.div`
   color: #fff;
 `;
 
-const Product = ({ item, findItem }) => {
+const Product = ({ item, findItem, addItem }) => {
   const navigate = useNavigate();
   return (
     <Container>
@@ -133,4 +135,10 @@ const Product = ({ item, findItem }) => {
   );
 };
 
-export default Product;
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: id => dispatch(addToCart(id)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Product);

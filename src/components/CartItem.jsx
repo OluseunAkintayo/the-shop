@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Add, DeleteOutlined, Remove } from '@material-ui/icons';
+import { removeItem } from '../redux/actions';
+import { connect } from 'react-redux';
 
 const CartProduct = styled.div`
   display: flex;
@@ -54,7 +56,7 @@ const RemoveItem = styled.div`
   cursor: pointer;
 `;
 
-const CartItem = ({ item, removeItem }) => {
+const CartItem = ({ item, remove }) => {
   return (
     <CartProduct>
       <Image src={item.image} alt='' />
@@ -71,10 +73,14 @@ const CartItem = ({ item, removeItem }) => {
         N{(item.added * item.price).toLocaleString()}
       </ItemPrice>
       <RemoveItem>
-        <DeleteOutlined onClick={() => removeItem(item.id)} />
+        <DeleteOutlined onClick={() => remove(item.id)} />
       </RemoveItem>
     </CartProduct>
   )
 }
-
-export default CartItem;
+const mapDispatchToProps = dispatch => {
+  return {
+    remove: id => dispatch(removeItem(id)),
+  }
+}
+export default connect(null, mapDispatchToProps)(CartItem);

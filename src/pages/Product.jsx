@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { loadItem } from '../redux/actions';
+import { loadItem, loadCart } from '../redux/actions';
 import { connect } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 import Navbar from '../components/Navbar';
@@ -127,8 +127,8 @@ const Input = styled.input`
 `;
 
 const Product = (props) => {
+  const { bag, getCart, product, products } = props;
   const [loading, setLoading] = React.useState(false);
-  const [product, setProduct] = React.useState({});
   const [orderQty, setOrderQty] = React.useState(1);
   const { productId } = useParams();
   const sizes = ["XS", "S", "M", "L", "XL"];
@@ -140,7 +140,6 @@ const Product = (props) => {
       .then(res => res.json())
       .then(result => {
         setLoading(false);
-        setProduct(result);
         props.getItem(result);
       })
       .catch(err => {
@@ -149,12 +148,28 @@ const Product = (props) => {
       });
   }
 
-  console.log(props);
-
   React.useEffect(() => {
     window.scrollTo(0, 0);
     getProduct(productId);
   }, [productId]);
+
+  let tempCart = [];
+  bag.forEach(item => tempCart.push(item));
+
+  const findItem = id => {
+    let cartItem = tempCart.find(item => Number(item.id) === Number(id));
+    const cartItemIndex = tempCart.indexOf(cartItem);
+    if(cartItem) {
+      cartItem = { ...cartItem, added: cartItem.added + 1 };
+      tempCart[cartItemIndex] = cartItem;
+      getCart(tempCart);
+    } else {
+      let newItem = products.find(item => Number(item.id) === Number(id));
+      newItem = { ...newItem, added: newItem.added + 1 };
+      tempCart = [...tempCart, newItem];
+      getCart(tempCart);
+    }
+  };
 
   return (
     <>
@@ -192,7 +207,7 @@ const Product = (props) => {
                   <Input type="text" name="orderQty" value={orderQty} onChange={e => setOrderQty(e.target.value)} />
                   <Add className="qtyActionIcon" onClick={() => setOrderQty(Number(orderQty) + 1)} />
                 </QtyWrapper>
-                <Button>Add to Cart</Button>
+                <Button onClick={() => findItem(product.id)}>Add to Cart</Button>
               </Actions>
             </InfoContainer>
           </ItemDetails>
@@ -207,13 +222,17 @@ const Product = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getItem: (item) => dispatch(loadItem(item)),
+    getCart: (items) => dispatch(loadCart(items)),
   }
 }
 
 const mapStateToProps = state => {
   return {
-    product: state.shop.item
+    product: state.shop.item,
+    products: state.shop.items,
+    bag: state.shop.cart
   }
 }
+
 
 export default connect(mapStateToProps ,mapDispatchToProps)(Product);

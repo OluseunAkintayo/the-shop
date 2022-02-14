@@ -12,9 +12,29 @@ export const loadItem = item => {
   }
 }
 
+export const loadCart = cart => {
+  return {
+    type: "GET_CART",
+    payload: cart
+  }
+}
+
+export const clearCart = () => {
+  return {
+    type: "CLEAR_CART",
+  }
+}
+
 export const addToCart = (id) => {
   return {
     type: "ADD_TO_CART",
-    payload: { id: id }
+    payload: { itemId: id }
+  }
+}
+
+export const removeItem = id => {
+  return {
+    type: "REMOVE_FROM_CART",
+    payload: { itemId: id }
   }
 }

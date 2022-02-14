@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { CircularProgress } from '@material-ui/core';
-import { loadItems } from '../redux/actions';
+import { loadItems, loadCart } from '../redux/actions';
 import { connect } from 'react-redux';
 
 const Container = styled.div`
@@ -20,10 +20,7 @@ const Progress = styled.div`
 `;
 
 const Products = (props) => {
-  console.log(props);
-  const { getItems } = props;
-  // const dispatch = useDispatch();
-  const [items, setItems] = useState([]);
+  const { getItems, getCart, products, bag } = props;
   const [loading, setLoading] = useState(false);
   const productsUrl = "https://fakestoreapi.com/products";
   const getProducts = async URL => {
@@ -35,9 +32,7 @@ const Products = (props) => {
             ...item, added: 0
           }
         })
-        setItems(newProducts);
         getItems(newProducts);
-        console.log(newProducts);
         setLoading(false);
       })
     } catch (error) {
@@ -50,28 +45,30 @@ const Products = (props) => {
     getProducts(productsUrl);
   }, []);
 
-  let cart = JSON.parse(localStorage.getItem("the-cart")) || [];
+  // create a temporary cart
+  let tempCart = [];
+  bag.forEach(item => tempCart.push(item));
 
   const findItem = id => {
-    let cartItem = cart.find(item => item.id === id);
-    const cartItemIndex = cart.indexOf(cartItem);
+    let cartItem = tempCart.find(item => Number(item.id) === Number(id));
+    const cartItemIndex = tempCart.indexOf(cartItem);
     if(cartItem) {
       cartItem = { ...cartItem, added: cartItem.added + 1 };
-      cart[cartItemIndex] = cartItem;
+      tempCart[cartItemIndex] = cartItem;
+      getCart(tempCart);
     } else {
-      let newItem = items.find(item => item.id === id);
+      let newItem = products.find(item => Number(item.id) === Number(id));
       newItem = { ...newItem, added: newItem.added + 1 };
-      cart = [...cart, newItem];
+      tempCart = [...tempCart, newItem];
+      getCart(tempCart);
     }
-    console.log(cart);
-    localStorage.setItem("the-cart", JSON.stringify(cart));
   };
 
   return (
     <Container>
       {
         loading === true ? <Progress><CircularProgress size="5rem" /></Progress>
-        : items.map(item => <Product item={item} key={item.id} findItem={findItem} />)
+        : products.map(item => <Product item={item} key={item.id} findItem={findItem} />)
       }
     </Container>
   );
@@ -80,12 +77,14 @@ const Products = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getItems: (items) => dispatch(loadItems(items)),
+    getCart: (items) => dispatch(loadCart(items)),
   }
 }
 
 const mapStateToProps = state => {
   return {
-    products: state.shop.items
+    products: state.shop.items,
+    bag: state.shop.cart
   }
 }
 
