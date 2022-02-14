@@ -108,7 +108,7 @@ const Links = styled.div`
 
 const NavContainer = styled.nav`
   height: 60px;
-  potition: relative;
+  position: relative;
   @media(max-width: 625px) {
     ${RightContent}, ${MidContent} {
       display: none;

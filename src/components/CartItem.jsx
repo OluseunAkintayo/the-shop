@@ -9,10 +9,9 @@ const CartProduct = styled.div`
   align-items: center;
   padding: 1rem;
   transition: all ease 0.2s;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(0,0,0,0.2);
   &:hover {
-    border-left: 1px solid rgba(0,0,0,0.2);
-    border-right: 1px solid rgba(0,0,0,0.2);
+    background: #f5f5f5;
     border-radius: 0.25rem;
   }
 `;

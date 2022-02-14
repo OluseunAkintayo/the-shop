@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
@@ -28,6 +29,14 @@ const Progress = styled.div`
   justify-content: center;
   height: 50vh;
   width: 100%;
+  position: relative;
+  .emptyCartTxt {
+    position: absolute;
+    z-index: 5;
+    bottom: 5rem;
+    background: teal;
+    color: white;
+  }
 `;
 const CartSummary = styled.div`
   max-width: 750px;
@@ -35,9 +44,16 @@ const CartSummary = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid teal;
 `;
 const ClearBtn = styled.div`
   flex: 1;
+  .clearBtn {
+    background: #d92128;
+    border: none;
+    color: white;
+    font-weight: 500;
+  }
 `;
 const CartTotals = styled.div`
   flex: 2;
@@ -47,10 +63,14 @@ const Item = styled.div`
   font-weight: 500;
   justify-content: space-between;
 `;
+const EmptyCart = styled.img`
+  max-width: 100%;
+`;
 
 const Cart = (props) => {
   const { bag, clear } = props;
   const [bagTotal, setBagTotal] = React.useState(0);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     let total = 0;
@@ -69,15 +89,17 @@ const Cart = (props) => {
           {
             bag.length === 0 ?
             <Progress>
-              <h2>Your cart is empty</h2>
+              <EmptyCart src="https://adasglobal.com/img/empty-cart.png" />
+              <Button className="emptyCartTxt" onClick={() => navigate("/")}>Shop now</Button>
             </Progress> :
             bag.map(item => <CartItem key={item.id} item={item} />)
           }
         </CartProducts>
         <CartSummary>
           <ClearBtn>
-            <Button onClick={clear}>Clear Cart</Button>
+            <Button className='clearBtn' onClick={clear}>Clear Cart</Button>
           </ClearBtn>
+          <ClearBtn></ClearBtn>
           <CartTotals>
             <Item>
               <div>Sub-total:</div>

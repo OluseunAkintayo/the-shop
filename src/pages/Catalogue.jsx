@@ -43,9 +43,9 @@ const Catalogue = () => {
   const sortData = ["Newest", "Brand", "Price (asc)", "Price (desc)"]
   return (
     <Container>
-      <Navbar />
-      {/* <SliderII />
-      <Categories /> */}
+      {/* <Navbar /> */}
+      {/* <SliderII /> */}
+      <Categories />
       <Title>Products</Title>
       <FilterWrapper>
         <Filter>

@@ -106,9 +106,8 @@ const QtyWrapper = styled.div`
   margin: 1rem 2.5rem 1rem 0;
   .qtyActionIcon {
     color: teal;
-    /* border: 1px solid teal; */
-    /* height: 2.375rem;
-    width: 2.5rem; */
+    height: 2.375rem;
+    width: 2.5rem;
     cursor: pointer;
     transition: ease-in-out 0.2s;
     &:hover {
@@ -118,12 +117,11 @@ const QtyWrapper = styled.div`
   }
 `;
 const Input = styled.input`
-  background: transparent;
+  background: rgba(0, 128, 128, 0.1);
   height: 2.375rem;
   width: 3rem;
   text-align: center;
   border: transparent;
-  outline: 1px solid teal;
 `;
 
 const Product = (props) => {
@@ -132,6 +130,10 @@ const Product = (props) => {
   const [orderQty, setOrderQty] = React.useState(1);
   const { productId } = useParams();
   const sizes = ["XS", "S", "M", "L", "XL"];
+
+  const reduceQty = () => {
+    orderQty > 1 && setOrderQty(orderQty - 1)
+  }
 
   const getProduct = async (id) => {
     setLoading(true);
@@ -203,8 +205,8 @@ const Product = (props) => {
               </FilterContainer>
               <Actions>
                 <QtyWrapper>
-                  <Remove className="qtyActionIcon" onClick={() => setOrderQty(Number(orderQty) - 1)} />
-                  <Input type="text" name="orderQty" value={orderQty} onChange={e => setOrderQty(e.target.value)} />
+                  <Remove className="qtyActionIcon" onClick={reduceQty} />
+                  <Input type="number" min="1" name="orderQty" value={orderQty} onChange={e => setOrderQty(e.target.value)} />
                   <Add className="qtyActionIcon" onClick={() => setOrderQty(Number(orderQty) + 1)} />
                 </QtyWrapper>
                 <Button onClick={() => findItem(product.id)}>Add to Cart</Button>
