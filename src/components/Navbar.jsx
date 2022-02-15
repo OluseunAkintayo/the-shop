@@ -110,6 +110,10 @@ const NavContainer = styled.nav`
   height: 60px;
   position: relative;
   @media(max-width: 625px) {
+    position: fixed;
+    z-index: 10;
+    background: #f5f5f5;
+    width: 100%;
     ${RightContent}, ${MidContent} {
       display: none;
     }
@@ -124,7 +128,7 @@ const Navbar = ({ bag }) => {
   React.useEffect(() => {
     let init = 0;
     bag.forEach(item => {
-      init += item.added
+      init += Number(item.added);
     });
     setCount(init);
   }, [bag, count]);
@@ -146,7 +150,7 @@ const Navbar = ({ bag }) => {
         <RightContent>
           <Link to="/shop/checkout">
             <LinkItem style={{ margin: '0 0.75rem' }}>
-              <Badge badgeContent={count} color="secondary">
+              <Badge badgeContent={Number(count)} color="secondary">
                 <ShoppingCartOutlined />
               </Badge>
             </LinkItem>
@@ -158,7 +162,7 @@ const Navbar = ({ bag }) => {
         <MobileMenu>
           <Link to="/shop/checkout">
             <LinkItem style={{ margin: '0 0.75rem' }}>
-              <Badge badgeContent={count} color="secondary">
+              <Badge badgeContent={Number(count)} color="secondary">
                 <ShoppingCartOutlined />
               </Badge>
             </LinkItem>

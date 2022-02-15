@@ -9,6 +9,7 @@ const FooterContainer = styled.footer`
 
 const Container = styled.div`
   display: flex;
+  justify-content: space-around;
   @media(max-width: 625px) {
     flex-direction: column;
     align-items: center;
@@ -16,13 +17,15 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-  flex: 1;
+  padding: 1rem;
   @media(max-width: 625px) {
     text-align: center;
   }
 `;
 
-const Logo = styled.h1``;
+const Logo = styled.h1`
+  color: rgba(0,0,0,0.6);
+`;
 
 const Socials = styled.div`
   display: flex;
@@ -46,12 +49,12 @@ const SocialIcon = styled.div`
   &:hover {
     color: white;
     background: teal;
-    transform: scale(1.15);
+    transform: scale(1.2);
   }
 `;
 
 const Right = styled.div`
-  flex: 1;
+  padding: 1rem;
   @media(max-width: 625px) {
     margin: 1rem 0;
     * {
@@ -110,7 +113,7 @@ const Footer = () => {
           </Socials>
         </Left>
         <Right>
-          <Title>Useful Links</Title>
+          <Title>Links</Title>
           <List>
             <span>Upcoming Offers</span>
             <span>Terms of Use</span>

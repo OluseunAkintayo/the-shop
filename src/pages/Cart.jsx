@@ -22,25 +22,23 @@ const CartProducts = styled.div`
   width: 100%;
   max-width: 750px;
   max-height: 60vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   ::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2); 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.3); 
-}
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2); 
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.3); 
+  }
+  @media(max-width: 400px) {
+    overflow-x: auto;
+  }
 `;
 const Progress = styled.div`
   display: flex;
@@ -65,10 +63,12 @@ const Progress = styled.div`
 const CartSummary = styled.div`
   max-width: 750px;
   margin: 0 auto;
+  padding-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid teal;
+  font-weight: 600 !important;
   @media(max-width: 375px) {
     flex-direction: column-reverse;
   }
@@ -79,7 +79,6 @@ const ClearBtn = styled.div`
     background: #d92128;
     border: none;
     color: white;
-    font-weight: 500;
   }
   @media(max-width: 375px) {
     width: 100%;
@@ -90,9 +89,11 @@ const ClearBtn = styled.div`
   }
 `;
 const CartTotals = styled.div`
-  flex: 2;
-  color: rgba(0,0,0,0.7);
+  width: 100%;
+  max-width: 250px;
+  color: rgba(0,0,0,0.65);
   @media(max-width: 375px) {
+    max-width: unset;
     width: 100%;
   }
 `;
@@ -121,7 +122,7 @@ const Cart = (props) => {
       total += item.price * item.added
     });
     setBagTotal(total);
-  });
+  }, [bag]);
   
   return (
     <CartWrapper>

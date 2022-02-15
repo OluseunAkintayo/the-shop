@@ -32,6 +32,13 @@ export const addToCart = (id) => {
   }
 }
 
+export const qtyChange = (id, qty) => {
+  return {
+    type: "ADJUST_QTY",
+    payload: { id: id, added: qty }
+  }
+}
+
 export const removeItem = id => {
   return {
     type: "REMOVE_FROM_CART",

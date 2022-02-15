@@ -55,9 +55,9 @@ const Desc = styled.p`
 `;
 const ItemRating = styled.div``;
 const Price = styled.div`
-  font-weight: 300;
-  font-size: 1.5rem;
-  color: darkslategray;
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: teal;
   margin: 1.5rem 0;
 `;
 const Progress = styled.div`
@@ -105,9 +105,10 @@ const QtyWrapper = styled.div`
   align-items: center;
   margin: 1rem 2.5rem 1rem 0;
   .qtyActionIcon {
-    color: teal;
-    height: 2.375rem;
-    width: 2.5rem;
+    background: teal;
+    color: white;
+    width: 1.75rem;
+    height: 1.75rem;
     cursor: pointer;
     transition: ease-in-out 0.2s;
     &:hover {
@@ -118,8 +119,8 @@ const QtyWrapper = styled.div`
 `;
 const Input = styled.input`
   background: rgba(0, 128, 128, 0.1);
-  height: 2.375rem;
-  width: 3rem;
+  width: 2rem;
+  height: 1.75rem;
   text-align: center;
   border: transparent;
 `;
@@ -162,15 +163,16 @@ const Product = (props) => {
     let cartItem = tempCart.find(item => Number(item.id) === Number(id));
     const cartItemIndex = tempCart.indexOf(cartItem);
     if(cartItem) {
-      cartItem = { ...cartItem, added: cartItem.added + 1 };
+      cartItem = { ...cartItem, added: cartItem.added + orderQty };
       tempCart[cartItemIndex] = cartItem;
       getCart(tempCart);
     } else {
       let newItem = products.find(item => Number(item.id) === Number(id));
-      newItem = { ...newItem, added: newItem.added + 1 };
+      newItem = { ...newItem, added: newItem.added + orderQty };
       tempCart = [...tempCart, newItem];
       getCart(tempCart);
     }
+    console.log(orderQty);
   };
 
   return (
@@ -199,14 +201,17 @@ const Product = (props) => {
                 <Filter>
                   <FilterTitle>Size:</FilterTitle>
                   <FilterSizeSelect>
-                    {sizes.map(size => <Option value={size} selected={size === "XS" && true}>{size}</Option>)}
+                    {sizes.map((size, idx) => <Option key={idx + 1} value={size} selected={size === "XS" && true}>{size}</Option>)}
                   </FilterSizeSelect>
                 </Filter>
               </FilterContainer>
               <Actions>
                 <QtyWrapper>
                   <Remove className="qtyActionIcon" onClick={reduceQty} />
-                  <Input type="number" min="1" name="orderQty" value={orderQty} onChange={e => setOrderQty(e.target.value)} />
+                  <Input type="number" min="1"
+                    name="orderQty" value={orderQty}
+                    onChange={e => setOrderQty(Number(e.target.value))}
+                  />
                   <Add className="qtyActionIcon" onClick={() => setOrderQty(Number(orderQty) + 1)} />
                 </QtyWrapper>
                 <Button onClick={() => findItem(product.id)}>Add to Cart</Button>
