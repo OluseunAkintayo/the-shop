@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Add, DeleteOutlined, Remove } from '@material-ui/icons';
-import { removeItem } from '../redux/actions';
+import { loadCart, removeItem } from '../redux/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -72,7 +72,23 @@ const RemoveItem = styled.div`
   padding: 0 0.375rem;
 `;
 
-const CartItem = ({ item, remove }) => {
+const CartItem = ({ item, remove, bag, setCart }) => {
+  const [cartItemQty, setCartItemQty] = React.useState(item.added);
+  let tempCart = [];
+  bag.forEach(item => tempCart.push(item));
+  let itemIndex = tempCart.indexOf(item);
+  const onQtyChange = e => {
+    let num = Number(e.target.value);
+    setCartItemQty(num);
+    item = { ...item, added: num }
+    tempCart[itemIndex] = item;
+    setCart(tempCart);
+  }
+  const addQty = () => setCartItemQty(Number(cartItemQty) + 1)
+  const reduceQty = () => {
+    cartItemQty > 1 && setCartItemQty(Number(cartItemQty) - 1)
+    cartItemQty === 0 && remove(item.id);
+  }
   return (
     <CartProduct>
       <Image src={item.image} alt='' />
@@ -82,9 +98,9 @@ const CartItem = ({ item, remove }) => {
         </ItemName>
         <ItemUnitPrice>N {item.price}</ItemUnitPrice>
         <QtyContainer>
-          <Remove className="qty-icons" />
-          <Input type="number" defaultValue={item.added} />
-          <Add className="qty-icons" />
+          <Remove className="qty-icons" onClick={reduceQty} />
+          <Input type="number" min="0" name="cartItemQty" value={cartItemQty} onChange={onQtyChange} />
+          <Add className="qty-icons" onClick={addQty} />
         </QtyContainer>
       </ItemInfo>
       <ItemPrice>
@@ -99,9 +115,16 @@ const CartItem = ({ item, remove }) => {
 const mapDispatchToProps = dispatch => {
   return {
     remove: id => dispatch(removeItem(id)),
+    setCart: data => dispatch(loadCart(data)),
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    bag: state.shop.cart
   }
 }
 
 
 
-export default connect(null, mapDispatchToProps)(CartItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

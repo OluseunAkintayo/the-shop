@@ -109,7 +109,7 @@ const Price = styled.div`
   color: #fff;
 `;
 
-const Product = ({ item, findItem, addItem }) => {
+const Product = ({ item, findItem }) => {
   const navigate = useNavigate();
   return (
     <Container>
@@ -135,10 +135,4 @@ const Product = ({ item, findItem, addItem }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addItem: id => dispatch(addToCart(id)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Product);
+export default Product;
