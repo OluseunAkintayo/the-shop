@@ -15,6 +15,7 @@ const CartContainer = styled.div`
 `;
 const Title = styled.h1`
   text-align: center;
+  color: rgba(0,0,0,0.6);
 `;
 const CartProducts = styled.div`
   margin: 2rem auto 1rem auto;
@@ -22,6 +23,24 @@ const CartProducts = styled.div`
   max-width: 750px;
   max-height: 60vh;
   overflow: auto;
+  ::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.3); 
+}
 `;
 const Progress = styled.div`
   display: flex;
@@ -33,9 +52,14 @@ const Progress = styled.div`
   .emptyCartTxt {
     position: absolute;
     z-index: 5;
-    bottom: 5rem;
+    bottom: 2rem;
     background: teal;
     color: white;
+    &:hover {
+      background: white;
+      color: teal;
+      border: 1px solid teal;
+    }
   }
 `;
 const CartSummary = styled.div`
@@ -45,6 +69,9 @@ const CartSummary = styled.div`
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid teal;
+  @media(max-width: 375px) {
+    flex-direction: column-reverse;
+  }
 `;
 const ClearBtn = styled.div`
   flex: 1;
@@ -54,17 +81,33 @@ const ClearBtn = styled.div`
     color: white;
     font-weight: 500;
   }
+  @media(max-width: 375px) {
+    width: 100%;
+    margin-top: 1rem;
+    ${Button} {
+      width: 100%;
+    }
+  }
 `;
 const CartTotals = styled.div`
   flex: 2;
+  color: rgba(0,0,0,0.7);
+  @media(max-width: 375px) {
+    width: 100%;
+  }
 `;
 const Item = styled.div`
   display: flex;
   font-weight: 500;
   justify-content: space-between;
+  padding: 0.25rem 0;
 `;
 const EmptyCart = styled.img`
-  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  @media(max-width: 625px) {
+    max-width: 100%;
+  }
 `;
 
 const Cart = (props) => {

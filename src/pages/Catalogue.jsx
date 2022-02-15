@@ -43,9 +43,8 @@ const Catalogue = () => {
   const sortData = ["Newest", "Brand", "Price (asc)", "Price (desc)"]
   return (
     <Container>
-      {/* <Navbar /> */}
-      {/* <SliderII /> */}
-      <Categories />
+      <Navbar />
+      <SliderII />
       <Title>Products</Title>
       <FilterWrapper>
         <Filter>
@@ -68,6 +67,7 @@ const Catalogue = () => {
         </Filter>
       </FilterWrapper>
       <Products />
+      <Categories />
       <Subscribe />
       <Footer />
     </Container>
