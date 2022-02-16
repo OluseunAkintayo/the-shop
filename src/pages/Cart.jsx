@@ -50,9 +50,10 @@ const Progress = styled.div`
   .emptyCartTxt {
     position: absolute;
     z-index: 5;
-    bottom: 2rem;
+    bottom: 1rem;
     background: teal;
     color: white;
+    width: 10rem;
     &:hover {
       background: white;
       color: teal;
@@ -66,7 +67,7 @@ const CartSummary = styled.div`
   padding-top: 1rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   border-top: 1px solid teal;
   font-weight: 600 !important;
   @media(max-width: 375px) {
@@ -145,18 +146,21 @@ const Cart = (props) => {
           </ClearBtn>
           <ClearBtn></ClearBtn>
           <CartTotals>
-            <Item>
-              <div>Sub-total:</div>
-              <div>{bagTotal.toLocaleString()}</div>
-            </Item>
-            <Item>
-              <div>Tax:</div>
-              <div>{(bagTotal * 0.075).toLocaleString()}</div>
-            </Item>
-            <Item>
-              <div>Total</div>
-              <div>{(bagTotal * 1.075).toLocaleString()}</div>
-            </Item>
+            <div>
+              <Item>
+                <div>Sub-total:</div>
+                <div>{bagTotal.toLocaleString()}</div>
+              </Item>
+              <Item>
+                <div>Tax:</div>
+                <div>{(bagTotal * 0.075).toLocaleString()}</div>
+              </Item>
+              <Item>
+                <div>Total</div>
+                <div>{(bagTotal * 1.075).toLocaleString()}</div>
+              </Item>
+            </div>
+            <Button style={{ width: '100%'}}>Checkout</Button>
           </CartTotals>
         </CartSummary>
       </CartContainer>

@@ -84,11 +84,21 @@ const CartItem = ({ item, remove, bag, setCart }) => {
     tempCart[itemIndex] = item;
     setCart(tempCart);
   }
-  const addQty = () => setCartItemQty(Number(cartItemQty) + 1)
-  const reduceQty = () => {
-    cartItemQty > 1 && setCartItemQty(Number(cartItemQty) - 1)
-    cartItemQty === 0 && remove(item.id);
+  const addQty = () => {
+    setCartItemQty(Number(cartItemQty) + 1);
+    item = { ...item, added: item.added + 1 }
+    tempCart[itemIndex] = item;
+    setCart(tempCart);
   }
+  const reduceQty = () => {
+    if (cartItemQty > 1) {
+      setCartItemQty(Number(cartItemQty) - 1)
+      item = { ...item, added: item.added - 1 }
+      tempCart[itemIndex] = item;
+      setCart(tempCart);
+    }
+  }
+
   return (
     <CartProduct>
       <Image src={item.image} alt='' />
@@ -99,7 +109,7 @@ const CartItem = ({ item, remove, bag, setCart }) => {
         <ItemUnitPrice>N {item.price}</ItemUnitPrice>
         <QtyContainer>
           <Remove className="qty-icons" onClick={reduceQty} />
-          <Input type="number" min="0" name="cartItemQty" value={cartItemQty} onChange={onQtyChange} />
+          <Input type="number" min="1" name="cartItemQty" value={cartItemQty} onChange={onQtyChange} />
           <Add className="qty-icons" onClick={addQty} />
         </QtyContainer>
       </ItemInfo>
