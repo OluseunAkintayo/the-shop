@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { slides } from "./data";
 import Button from "./Button";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
+import 'bootstrap/dist/css/bootstrap.css';
+import { Carousel } from 'react-bootstrap';
 
 const Slide = styled.div`
   display: flex;
@@ -52,17 +52,21 @@ const ItemInfo = styled.p`
 
 export const SliderII = () => {
   return (
-    <Carousel autoPlay interval="3000" infiniteLoop transitionTime="1000" showThumbs={false} showStatus={false}>
+    <Carousel>
       {
         slides.map(item => (
-          <Slide key={item.id}>
-            <ImgWrapper><Image src={item.image} /></ImgWrapper>
-            <InfoWrapper>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemInfo>{item.desc}</ItemInfo>
-              <Button>Order Now</Button>
-            </InfoWrapper>     
-          </Slide>
+          <Carousel.Item key={item.id} interval={2500}>
+            <Slide>
+              <ImgWrapper><Image src={item.image} /></ImgWrapper>
+              <InfoWrapper>
+                <ItemTitle>{item.title}</ItemTitle>
+                <ItemInfo>{item.desc}</ItemInfo>
+                <Button style={{ fontWeight: 300 }}>
+                  <a href="#products">Order Now</a>
+                </Button>
+              </InfoWrapper>     
+            </Slide>
+          </Carousel.Item>
         ))
       }
     </Carousel>

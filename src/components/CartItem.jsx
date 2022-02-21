@@ -34,8 +34,8 @@ const ItemName = styled.h3`
 `;
 const ItemUnitPrice = styled.p`
   margin: 0.75rem 0;
-  font-weight: 400;
-  font-size: 0.9rem;
+  font-weight: 500;
+  font-size: 1rem;
   color: rgba(0,0,0,0.6);
 `;
 const QtyContainer = styled.div`
@@ -106,7 +106,7 @@ const CartItem = ({ item, remove, bag, setCart }) => {
         <ItemName>
           <Link to={`/products/${item.id}`}>{item.title}</Link>
         </ItemName>
-        <ItemUnitPrice>N {item.price}</ItemUnitPrice>
+        <ItemUnitPrice>N {item.price.toLocaleString()}</ItemUnitPrice>
         <QtyContainer>
           <Remove className="qty-icons" onClick={reduceQty} />
           <Input type="number" min="1" name="cartItemQty" value={cartItemQty} onChange={onQtyChange} />

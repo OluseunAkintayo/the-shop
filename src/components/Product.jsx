@@ -99,7 +99,7 @@ const Title = styled.div`
 
 const Price = styled.div`
   background: teal;
-  width: 4rem;
+  width: 4.5rem;
   height: 100%;
   padding: 0 0.5rem;
   display: flex;
@@ -128,7 +128,7 @@ const Product = ({ item, findItem }) => {
         </Tooltip>
       </Info>
       <Desc>
-        <Title>{item.title}</Title>
+        <Title>{item.title.length > 70 ? item.title.slice(0, 70) + "..." : item.title}</Title>
         <Price>N {item.price}</Price>
       </Desc>
     </Container>

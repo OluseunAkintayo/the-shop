@@ -124,6 +124,10 @@ const Cart = (props) => {
     });
     setBagTotal(total);
   }, [bag]);
+
+  React.useEffect(() => {
+    window.scrollTo(0,0);
+  })
   
   return (
     <CartWrapper>

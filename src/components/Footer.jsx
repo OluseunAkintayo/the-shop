@@ -88,7 +88,7 @@ const Bottom = styled.div`
   position: absolute;
   left: 0;
   right: 0;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   font-size: 0.8rem;
   text-align: center;
   border-top: 1px solid teal;
@@ -122,7 +122,7 @@ const Footer = () => {
         </Right>
       </Container>
       <Bottom>
-        <code>&copy; TechyDNA { new Date().getFullYear() }</code>
+        <p>&copy; TechyDNA { new Date().getFullYear() }</p>
       </Bottom>
     </FooterContainer>
   );
