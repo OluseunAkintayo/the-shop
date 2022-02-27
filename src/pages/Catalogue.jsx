@@ -83,7 +83,7 @@ const Catalogue = ({ products, setItems, setCart, bag }) => {
       tempCart = [...tempCart, newItem];
       setCart(tempCart);
     }
-    toast.success("Item added");
+    toast.success("Item added to cart!");
   };
   
   // filter/sort params
@@ -120,7 +120,7 @@ const Catalogue = ({ products, setItems, setCart, bag }) => {
           <Filter>
             <FilterText>Sort Items: </FilterText>
             <Select name="filterText" onChange={handleChange}>
-              <Option disabled defaultValue={true}>Choose</Option>
+              <Option selected>Choose</Option>
               {sortData.map(item => <Option value={item} key={item}>{item}</Option>)}
             </Select>
           </Filter>
