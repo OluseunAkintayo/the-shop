@@ -114,7 +114,7 @@ const Catalogue = ({ products, setItems, setCart, bag }) => {
       <ToastContainer autoClose={3000} />
       <Container>
         <Navbar />
-        {/* <SliderII /> */}
+        <SliderII />
         <Title>Products</Title>
         <FilterWrapper>
           <Filter>
