@@ -31,12 +31,12 @@ const ItemDetails = styled.div`
 `;
 const ImageContainer = styled.div`
   flex: 1;
-  height: 70vh;
   display: flex;
   justify-content: center;
+  padding: 1rem;
 `;
 const Image = styled.img`
-  height: 100%;
+  max-height: 70vh;
   max-width: 100%;
   object-fit: contain;
 `;
@@ -46,14 +46,12 @@ const InfoContainer = styled.div`
   .desc {
     display: flex;
     align-items: center;
-    /* background: pink; */
   }
 `;
 const Desc = styled.p`
   line-height: 1.75rem;
   margin-top: 2rem;
 `;
-const ItemRating = styled.div``;
 const Price = styled.div`
   font-weight: 500;
   font-size: 1.75rem;
@@ -172,7 +170,6 @@ const Product = (props) => {
       tempCart = [...tempCart, newItem];
       getCart(tempCart);
     }
-    console.log(orderQty);
   };
 
   return (
@@ -196,7 +193,7 @@ const Product = (props) => {
                   <FilterTitle>Color:</FilterTitle>
                   <FilterColor color="black" />
                   <FilterColor color="royalblue" />
-                  <FilterColor color="orange" />
+                  <FilterColor color="gray" />
                 </Filter>
                 <Filter>
                   <FilterTitle>Size:</FilterTitle>

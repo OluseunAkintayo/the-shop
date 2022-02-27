@@ -31,11 +31,6 @@ export const categories = [
     title: "Easy Wear"
   },
   {
-    id: 3,
-    img: "https://www.2morrowstrends.com/wp-content/uploads/2016/11/1485275937-1.jpg",
-    title: "Casual Footwear"
-  },
-  {
     id: 4,
     img: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z2FkZ2V0fGVufDB8fDB8fA%3D%3D&w=1000&q=80",
     title: "Gadgets"

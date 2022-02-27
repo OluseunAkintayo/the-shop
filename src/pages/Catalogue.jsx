@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { loadItems, loadCart } from '../redux/actions';
@@ -8,6 +8,8 @@ import Products from '../components/Products';
 import Subscribe from '../components/Subscribe';
 import Footer from '../components/Footer';
 import SliderII from '../components/Slider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
 
@@ -81,6 +83,7 @@ const Catalogue = ({ products, setItems, setCart, bag }) => {
       tempCart = [...tempCart, newItem];
       setCart(tempCart);
     }
+    toast.success("Item added");
   };
   
   // filter/sort params
@@ -107,39 +110,31 @@ const Catalogue = ({ products, setItems, setCart, bag }) => {
   }
 
   return (
-    <Container>
-      <Navbar />
-      <SliderII />
-      <Title>Products</Title>
-      <FilterWrapper>
-        {/* <Filter>
-          <FilterText>Filter Items: </FilterText>
-          <Select>
-            <Option disabled selected>Color</Option>
-            {colors.map(item => <Option value={item} key={item}>{item}</Option>)}
-          </Select>
-          <Select>
-            <Option disabled selected>Size</Option>
-            {sizes.map(size => <Option value={size} key={size}>{size}</Option>)}
-          </Select>
-        </Filter> */}
-        <Filter>
-          <FilterText>Sort Items: </FilterText>
-          <Select name="filterText" onChange={handleChange}>
-            <Option disabled selected>Choose</Option>
-            {sortData.map(item => <Option value={item} key={item}>{item}</Option>)}
-          </Select>
-        </Filter>
-      </FilterWrapper>
-      <Products
-        products={products}
-        loading={loading}
-        findItem={findItem}
-      />
-      <Categories />
-      <Subscribe />
-      <Footer />
-    </Container>
+    <Fragment>
+      <ToastContainer autoClose={3000} />
+      <Container>
+        <Navbar />
+        {/* <SliderII /> */}
+        <Title>Products</Title>
+        <FilterWrapper>
+          <Filter>
+            <FilterText>Sort Items: </FilterText>
+            <Select name="filterText" onChange={handleChange}>
+              <Option disabled defaultValue={true}>Choose</Option>
+              {sortData.map(item => <Option value={item} key={item}>{item}</Option>)}
+            </Select>
+          </Filter>
+        </FilterWrapper>
+        <Products
+          products={products}
+          loading={loading}
+          findItem={findItem}
+        />
+        <Categories />
+        <Subscribe />
+        <Footer />
+      </Container>
+    </Fragment>
   )
 }
 

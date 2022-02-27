@@ -7,6 +7,8 @@ import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import CartItem from '../components/CartItem';
 import { clearCart } from '../redux/actions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const CartWrapper = styled.section``;
@@ -141,7 +143,7 @@ const Cart = (props) => {
               <EmptyCart src="https://adasglobal.com/img/empty-cart.png" />
               <Button className="emptyCartTxt" onClick={() => navigate("/")}>Shop now</Button>
             </Progress> :
-            bag.map(item => <CartItem key={item.id} item={item} />)
+            bag.map(item => <CartItem key={item.id} item={item} toast={toast} />)
           }
         </CartProducts>
         <CartSummary>
@@ -169,6 +171,7 @@ const Cart = (props) => {
         </CartSummary>
       </CartContainer>
       <Footer />
+      <ToastContainer autoClose={3000} />
     </CartWrapper>
   )
 };

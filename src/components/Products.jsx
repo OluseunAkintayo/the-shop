@@ -17,7 +17,7 @@ const Progress = styled.div`
 `;
 
 const Products = (props) => {
-  const { products, loading, findItem } = props;
+  const { products, loading, findItem, toast } = props;
   
   return (
     <Container id="products">

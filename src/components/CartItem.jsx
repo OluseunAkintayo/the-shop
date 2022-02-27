@@ -72,7 +72,7 @@ const RemoveItem = styled.div`
   padding: 0 0.375rem;
 `;
 
-const CartItem = ({ item, remove, bag, setCart }) => {
+const CartItem = ({ item, removeItem, bag, setCart, toast }) => {
   const [cartItemQty, setCartItemQty] = React.useState(item.added);
   let tempCart = [];
   bag.forEach(item => tempCart.push(item));
@@ -97,6 +97,11 @@ const CartItem = ({ item, remove, bag, setCart }) => {
       tempCart[itemIndex] = item;
       setCart(tempCart);
     }
+  }
+
+  const remove = param => {
+    removeItem(param);
+    toast.success("Item removed from cart!");
   }
 
   return (
@@ -124,7 +129,7 @@ const CartItem = ({ item, remove, bag, setCart }) => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    remove: id => dispatch(removeItem(id)),
+    removeItem: id => dispatch(removeItem(id)),
     setCart: data => dispatch(loadCart(data)),
   }
 }

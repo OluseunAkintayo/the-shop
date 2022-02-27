@@ -122,7 +122,7 @@ const Footer = () => {
         </Right>
       </Container>
       <Bottom>
-        <p>&copy; TechyDNA { new Date().getFullYear() }</p>
+        <p>&copy; <a href="https://techydna.com">TechyDNA</a> { new Date().getFullYear() }</p>
       </Bottom>
     </FooterContainer>
   );
