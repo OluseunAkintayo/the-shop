@@ -24,7 +24,6 @@ const Logo = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
 `;
-
 // left content end
 
 // mid content start
@@ -121,7 +120,7 @@ const NavContainer = styled.nav`
 `;
 
 
-const Navbar = ({ bag }) => {
+const Navbar = ({ bag, search }) => {
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = React.useState(0);
 
@@ -143,8 +142,8 @@ const Navbar = ({ bag }) => {
         </LeftContent>
         <MidContent>
           <SearchComponent>
-            <Input type="text" placeholder='Search...' />
-            <Search className='search-icon' />
+            <Input type="text" placeholder='Search...' id="searchInput" />
+            <Search className='search-icon' name="" onClick={() => search("casual")} />
           </SearchComponent>
         </MidContent>
         <RightContent>

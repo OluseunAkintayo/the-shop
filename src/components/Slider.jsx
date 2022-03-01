@@ -53,7 +53,7 @@ const ItemInfo = styled.p`
 
 export const SliderII = () => {
   return (
-    <Container>
+    <Container id="sliderContainer">
       <Carousel>
         {
           slides.map(item => (

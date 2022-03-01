@@ -128,7 +128,7 @@ const Product = ({ item, findItem }) => {
         </Tooltip>
       </Info>
       <Desc>
-        <Title>{item.title.length > 70 ? item.title.slice(0, 70) + "..." : item.title}</Title>
+        <Title>{item.title.length > 60 ? item.title.slice(0, 60) + "..." : item.title}</Title>
         <Price>N {item.price}</Price>
       </Desc>
     </Container>

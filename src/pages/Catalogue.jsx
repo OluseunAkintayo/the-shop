@@ -8,12 +8,10 @@ import Products from '../components/Products';
 import Subscribe from '../components/Subscribe';
 import Footer from '../components/Footer';
 import SliderII from '../components/Slider';
+import Fuse from 'fuse.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Container = styled.div`
-
-`;
 const Title = styled.h3`
   padding: 1rem;
   color: rgba(0,0,0,0.6);
@@ -42,8 +40,13 @@ const Option = styled.option`
   padding: 0.25rem 0;
 `;
 
+const Container = styled.div`
+  
+`;
+
 const Catalogue = ({ products, setItems, setCart, bag }) => {
   const [loading, setLoading] = useState(false);
+  const [tempProducts, setTempProducts] = useState([]);
   const productsUrl = "https://fakestoreapi.com/products";
   const getProducts = async URL => {
     setLoading(true);
@@ -53,6 +56,7 @@ const Catalogue = ({ products, setItems, setCart, bag }) => {
           return { ...item, added: 0, price: item.price * 10 }
         });
         setItems(newProducts); // save items to redux state
+        setTempProducts(newProducts);
         setLoading(false);
       })
     } catch (error) {
@@ -109,11 +113,23 @@ const Catalogue = ({ products, setItems, setCart, bag }) => {
     }
   }
 
+  // implement search
+  const searchParams = { keys: ["title"] };
+  const fuse = new Fuse(tempProducts, searchParams);
+
+  const search = params => {
+    let res = fuse.search(params)
+    res = res.map(product => {
+      return product.item
+    })
+    console.log(res);
+  }
+
   return (
     <Fragment>
-      <ToastContainer autoClose={3000} />
+      <ToastContainer autoClose={2500} />
       <Container>
-        <Navbar />
+        <Navbar search={search} />
         <SliderII />
         <Title>Products</Title>
         <FilterWrapper>
