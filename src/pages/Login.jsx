@@ -50,7 +50,6 @@ const Input = styled.input`
 `;
 const Agreement = styled.span``;
 
-
 const Login = () => {
   return (
     <PageWrapper>
