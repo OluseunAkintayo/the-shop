@@ -1,30 +1,27 @@
-import { Facebook, Instagram, Twitter } from "@material-ui/icons";
+import { Facebook, Instagram, Twitter } from "react-feather";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
   color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  @media(max-width: 375px) {
+    flex-direction: column;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
-  @media(max-width: 625px) {
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-const Left = styled.div`
-  padding: 1rem;
-  @media(max-width: 625px) {
-    text-align: center;
-  }
+  flex-direction: column;
 `;
 
 const Logo = styled.h1`
   color: rgba(0,0,0,0.6);
+  font-weight: 500;
+  font-size: 1.5rem;
 `;
 
 const Socials = styled.div`
@@ -35,8 +32,8 @@ const Socials = styled.div`
   }
 `;
 const SocialIcon = styled.div`
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,76 +50,33 @@ const SocialIcon = styled.div`
   }
 `;
 
-const Right = styled.div`
-  padding: 1rem;
-  @media(max-width: 625px) {
-    margin: 1rem 0;
-    * {
-      text-align: center !important;
-    }
-  }
-`;
-
-const Title = styled.h3`
-  text-align: right;
-`;
-
-const List = styled.div`
-  margin: 1rem 0;
-  span {
-    display: block;
-    text-align: right;
-    padding: 0.375rem 0;
-    margin: 0.25rem 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    &:hover {
-      /* background-color: rgba(0,0,0,0.1); */
-      text-decoration: underline;
-    }
-  }
-`;
-
 const Bottom = styled.div`
-  flex: 1;
-  position: absolute;
-  left: 0;
-  right: 0;
   padding: 0.5rem 0;
   font-size: 0.8rem;
-  text-align: center;
-  border-top: 1px solid teal;
+  a:hover {
+    color: teal !important;
+  }
 `;
 
 const Footer = () => {
   return(
     <FooterContainer>
       <Container>
-        <Left>
-          <Logo>The Shop</Logo>
-          <Socials>
-            <SocialIcon>
-              <Facebook />
-            </SocialIcon>
-            <SocialIcon>
-              <Twitter />
-            </SocialIcon>
-            <SocialIcon>
-              <Instagram />
-            </SocialIcon>
-          </Socials>
-        </Left>
-        <Right>
-          <Title>Links</Title>
-          <List>
-            <span>Upcoming Offers</span>
-            <span>Terms of Use</span>
-            <span>Contact Us</span>
-          </List>
-        </Right>
+        <Logo>The Shop</Logo>
+        <Socials>
+          <SocialIcon>
+            <Facebook />
+          </SocialIcon>
+          <SocialIcon>
+            <Twitter />
+          </SocialIcon>
+          <SocialIcon>
+            <Instagram />
+          </SocialIcon>
+        </Socials>
       </Container>
       <Bottom>
-        <p>&copy; <a href="https://techydna.com">TechyDNA</a> { new Date().getFullYear() }</p>
+        <p>Developed by<br /><a href="https://techydna.com">TechyDNA</a> &copy; { new Date().getFullYear() }</p>
       </Bottom>
     </FooterContainer>
   );

@@ -4,16 +4,18 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import Button from '../components/Button';
+import { Button, Typography } from '@mui/material';
 import CartItem from '../components/CartItem';
-import { clearCart } from '../redux/actions';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { clearCart } from '../redux/slice';
+import { toast } from 'react-toastify';
 
 
 const CartWrapper = styled.section``;
 const CartContainer = styled.div`
-  padding: 1rem;
+  padding: 2rem 1rem 1rem 1rem;
+  max-width: 1200px;
+  min-height: calc(100vh - 193px);
+  margin: 0 auto;
 `;
 const Title = styled.h1`
   text-align: center;
@@ -22,22 +24,6 @@ const Title = styled.h1`
 const CartProducts = styled.div`
   margin: 2rem auto 1rem auto;
   width: 100%;
-  max-width: 750px;
-  max-height: 60vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.2); 
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0,0,0,0.3); 
-  }
   @media(max-width: 400px) {
     overflow-x: auto;
   }
@@ -46,55 +32,62 @@ const Progress = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  flex-direction: column;
+  gap: 1rem;
+  height: 22.5vh;
   width: 100%;
   position: relative;
   .emptyCartTxt {
-    position: absolute;
-    z-index: 5;
-    bottom: 1rem;
     background: teal;
+    outline: 1px solid teal;
     color: white;
     width: 10rem;
     &:hover {
       background: white;
       color: teal;
-      border: 1px solid teal;
+      outline: 1px solid teal;
+      border: none;
     }
   }
 `;
 const CartSummary = styled.div`
-  max-width: 750px;
   margin: 0 auto;
   padding-top: 1rem;
   display: flex;
+  gap: 1.5rem;
   justify-content: space-between;
-  /* align-items: center; */
   border-top: 1px solid teal;
   font-weight: 600 !important;
-  @media(max-width: 375px) {
-    flex-direction: column-reverse;
-  }
-`;
-const ClearBtn = styled.div`
-  flex: 1;
-  .clearBtn {
-    background: #d92128;
-    border: none;
-    color: white;
-  }
-  @media(max-width: 375px) {
-    width: 100%;
-    margin-top: 1rem;
-    ${Button} {
+  .clear-btn {
+    border: 1px solid #D70900;
+    height: 3rem;
+    color: #D70900;
+    max-width: 250px;
+    &:hover {
+      border: 1px solid #D70900;
+      background-color: #D7090040;
+    }
+    @media(max-width: 375px) {
+      max-width: unset;
       width: 100%;
     }
+  }
+  @media(max-width: 375px) {
+    flex-direction: column-reverse;
   }
 `;
 const CartTotals = styled.div`
   width: 100%;
   max-width: 250px;
   color: rgba(0,0,0,0.65);
+  .cart-btn {
+    background-color: teal;
+    height: 3rem;
+    margin-top: 1rem;
+    &:hover {
+      background-color: rgba(0, 128, 128, 0.7);
+    }
+  }
   @media(max-width: 375px) {
     max-width: unset;
     width: 100%;
@@ -106,30 +99,22 @@ const Item = styled.div`
   justify-content: space-between;
   padding: 0.25rem 0;
 `;
-const EmptyCart = styled.img`
-  max-height: 100%;
-  object-fit: cover;
-  @media(max-width: 625px) {
-    max-width: 100%;
-  }
-`;
 
-const Cart = (props) => {
-  const { bag, clear } = props;
+const Cart = ({ cart, clear }) => {
   const [bagTotal, setBagTotal] = React.useState(0);
   const navigate = useNavigate();
 
   React.useEffect(() => {
     let total = 0;
-    bag.forEach(item => {
+    cart.forEach(item => {
       total += item.price * item.added
     });
     setBagTotal(total);
-  }, [bag]);
+  }, [cart]);
 
   React.useEffect(() => {
     window.scrollTo(0,0);
-  })
+  }, []);
   
   return (
     <CartWrapper>
@@ -138,19 +123,16 @@ const Cart = (props) => {
         <Title>Your Cart</Title>
         <CartProducts>
           {
-            bag.length === 0 ?
+            cart.length === 0 ?
             <Progress>
-              <EmptyCart src="https://adasglobal.com/img/empty-cart.png" />
+              <Typography>No items in cart</Typography>
               <Button className="emptyCartTxt" onClick={() => navigate("/")}>Shop now</Button>
             </Progress> :
-            bag.map(item => <CartItem key={item.id} item={item} toast={toast} />)
+            cart.map(item => <CartItem key={item.id} item={item} toast={toast} />)
           }
         </CartProducts>
         <CartSummary>
-          <ClearBtn>
-            <Button className='clearBtn' onClick={clear}>Clear Cart</Button>
-          </ClearBtn>
-          <ClearBtn></ClearBtn>
+          <Button className="clear-btn" onClick={clear} fullWidth variant="outlined">Clear Cart</Button>
           <CartTotals>
             <div>
               <Item>
@@ -166,19 +148,18 @@ const Cart = (props) => {
                 <div>{(bagTotal * 1.075).toLocaleString()}</div>
               </Item>
             </div>
-            <Button style={{ width: '100%'}}>Checkout</Button>
+            <Button className="cart-btn" fullWidth variant="contained">Checkout</Button>
           </CartTotals>
-        </CartSummary>
+        </CartSummary> 
       </CartContainer>
       <Footer />
-      <ToastContainer autoClose={3000} />
     </CartWrapper>
   )
 };
 
 const mapStateToProps = state => {
   return {
-    bag: state.shop.cart
+    cart: state.shop.cart
   }
 }
 const mapDispatchToProps = dispatch => {

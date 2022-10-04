@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Add, DeleteOutlined, Remove } from '@material-ui/icons';
-import { loadCart, removeItem } from '../redux/actions';
-import { connect } from 'react-redux';
+import { Plus, Trash, Minus } from 'react-feather';
+import { setCart } from '../redux/slice';
+import { connect, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Tooltip, Button } from '@mui/material';
 
 const CartProduct = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 0;
   transition: all ease 0.2s;
   border-top: 1px solid rgba(0,0,0,0.2);
   &:hover {
@@ -72,35 +73,38 @@ const RemoveItem = styled.div`
   padding: 0 0.375rem;
 `;
 
-const CartItem = ({ item, removeItem, bag, setCart, toast }) => {
+const CartItem = ({ item, cart, toast }) => {
+  const dispatch = useDispatch();
   const [cartItemQty, setCartItemQty] = React.useState(item.added);
   let tempCart = [];
-  bag.forEach(item => tempCart.push(item));
+  cart.forEach(item => tempCart.push(item));
   let itemIndex = tempCart.indexOf(item);
   const onQtyChange = e => {
     let num = Number(e.target.value);
     setCartItemQty(num);
     item = { ...item, added: num }
     tempCart[itemIndex] = item;
-    setCart(tempCart);
+    dispatch(setCart(tempCart));
   }
   const addQty = () => {
     setCartItemQty(Number(cartItemQty) + 1);
     item = { ...item, added: item.added + 1 }
     tempCart[itemIndex] = item;
-    setCart(tempCart);
+    dispatch(setCart(tempCart));
   }
   const reduceQty = () => {
     if (cartItemQty > 1) {
       setCartItemQty(Number(cartItemQty) - 1)
       item = { ...item, added: item.added - 1 }
       tempCart[itemIndex] = item;
-      setCart(tempCart);
+      dispatch(setCart(tempCart));
     }
   }
 
   const remove = param => {
-    removeItem(param);
+    let res = cart.filter(item => Number(item.id) !== Number(param));
+    console.log(res);
+    dispatch(setCart(res));
     toast.success("Item removed from cart!");
   }
 
@@ -111,35 +115,29 @@ const CartItem = ({ item, removeItem, bag, setCart, toast }) => {
         <ItemName>
           <Link to={`/products/${item.id}`}>{item.title}</Link>
         </ItemName>
-        <ItemUnitPrice>N {item.price.toLocaleString()}</ItemUnitPrice>
+        <ItemUnitPrice>₦ {item.price.toLocaleString()}</ItemUnitPrice>
         <QtyContainer>
-          <Remove className="qty-icons" onClick={reduceQty} />
+          <Minus className="qty-icons" onClick={reduceQty} />
           <Input type="number" min="1" name="cartItemQty" value={cartItemQty} onChange={onQtyChange} />
-          <Add className="qty-icons" onClick={addQty} />
+          <Plus className="qty-icons" onClick={addQty} />
         </QtyContainer>
       </ItemInfo>
       <ItemPrice>
-        N{(item.added * item.price).toLocaleString()}
+        ₦{(item.added * item.price).toLocaleString()}
       </ItemPrice>
       <RemoveItem>
-        <DeleteOutlined className="removeItemIcon" onClick={() => remove(item.id)} />
+        <Tooltip title="Remove item" placement="top">
+          <Trash className="removeItemIcon" onClick={() => remove(item.id)} />
+        </Tooltip>
       </RemoveItem>
     </CartProduct>
   )
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    removeItem: id => dispatch(removeItem(id)),
-    setCart: data => dispatch(loadCart(data)),
-  }
-}
 
 const mapStateToProps = state => {
   return {
-    bag: state.shop.cart
+    cart: state.shop.cart
   }
 }
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
+export default connect(mapStateToProps)(CartItem);

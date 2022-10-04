@@ -1,23 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
 import Product from './pages/Product';
-import Catalogue from './pages/Catalogue';
-import Register from './pages/Signup';
-import Login from './pages/Login';
 import Cart from './pages/Cart';
+import { ToastContainer } from 'react-toastify';
 
-const App = () => {
+function App() {
   return (
     <BrowserRouter>
+      <ToastContainer autoClose={2500} />
       <Routes>
-        <Route path="/" element={<Catalogue />}  />
-        <Route path="/products/:productId" element={<Product />}  />
-        <Route path="/shop/register" element={<Register />} />
-        <Route path="/shop/auth" element={<Login />} />
-        <Route path="/shop/checkout" element={<Cart />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/products/:id" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

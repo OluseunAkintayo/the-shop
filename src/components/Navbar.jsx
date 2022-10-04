@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MenuOpen, Search, ShoppingCartOutlined } from '@material-ui/icons';
-import { Badge } from '@material-ui/core';
+import { ShoppingCart, Menu, Search } from 'react-feather';
+import { Badge } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -10,9 +10,11 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
-// left content start
 const LeftContent = styled.div`
   flex: 1;
   display: flex;
@@ -24,9 +26,7 @@ const Logo = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
 `;
-// left content end
 
-// mid content start
 const MidContent = styled.div`
   flex: 1;
   display: flex;
@@ -34,24 +34,6 @@ const MidContent = styled.div`
   align-items: center;
 `;
 
-const SearchComponent = styled.div`
-  display: flex;
-  border: 1px solid lightgray;
-  padding: 0.375rem;
-  margin-left: 1.5rem;
-  border-radius: 0.25rem;
-  .search-icon {
-    color: lightgray;
-  }
-`;
-
-const Input = styled.input`
-  border: none;
-  outline: none;
-`;
-// mid content end
-
-// right content start
 const RightContent = styled.div`
   flex: 1;
   display: flex;
@@ -108,6 +90,7 @@ const Links = styled.div`
 const NavContainer = styled.nav`
   height: 60px;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   @media(max-width: 625px) {
     position: fixed;
     z-index: 10;
@@ -121,7 +104,6 @@ const NavContainer = styled.nav`
 
 
 const Navbar = ({ bag, search }) => {
-  const [open, setOpen] = React.useState(false);
   const [count, setCount] = React.useState(0);
 
   React.useEffect(() => {
@@ -141,40 +123,40 @@ const Navbar = ({ bag, search }) => {
           </Link>
         </LeftContent>
         <MidContent>
-          <SearchComponent>
+          {/* <SearchComponent>
             <Input type="text" placeholder='Search...' id="searchInput" />
             <Search className='search-icon' name="" onClick={() => search("casual")} />
-          </SearchComponent>
+          </SearchComponent> */}
         </MidContent>
         <RightContent>
-          <Link to="/shop/checkout">
+          <Link to="/cart">
             <LinkItem style={{ margin: '0 0.75rem' }}>
               <Badge badgeContent={Number(count)} color="secondary">
-                <ShoppingCartOutlined />
+                <ShoppingCart />
               </Badge>
             </LinkItem>
           </Link>
           {/* <Language className='menu'>EN</Language> */}
-          <Link to='/shop/auth'><LinkItem className='menu'>Login</LinkItem></Link>
-          <Link to='/shop/register'><LinkItem className='menu'>Register</LinkItem></Link>
+          {/* <Link to='/shop/auth'><LinkItem className='menu'>Login</LinkItem></Link>
+          <Link to='/shop/register'><LinkItem className='menu'>Register</LinkItem></Link> */}
         </RightContent>
         <MobileMenu>
-          <Link to="/shop/checkout">
+          <Link to="/cart">
             <LinkItem style={{ margin: '0 0.75rem' }}>
               <Badge badgeContent={Number(count)} color="secondary">
-                <ShoppingCartOutlined />
+                <ShoppingCart />
               </Badge>
             </LinkItem>
           </Link>
-          <LinkItem className='mobile-item' style={{ marginLeft: 10 }} onClick={() => setOpen(!open)}>
-            <MenuOpen className='mobile-item' />
-          </LinkItem>
-          <Links style={{ display: `${open ? "block" : "none"}` }} id="links">
+          {/* <LinkItem className='mobile-item' style={{ marginLeft: 10 }} onClick={() => setOpen(!open)}>
+            <Menu className='mobile-item' />
+          </LinkItem> */}
+          {/* <Links style={{ display: `${open ? "block" : "none"}` }} id="links">
             <LinkItem className='mobile-item'>Lang: EN</LinkItem>
             <Link to ='/'><LinkItem className='mobile-item'>Favorites</LinkItem></Link>
             <Link to='/shop/auth'><LinkItem className='mobile-item'>Login</LinkItem></Link>
             <Link to='/shop/register'><LinkItem className='mobile-item'>Register</LinkItem></Link>
-          </Links>
+          </Links> */}
         </MobileMenu>
       </Wrapper>
     </NavContainer>

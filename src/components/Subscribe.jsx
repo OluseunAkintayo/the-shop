@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from './Button';
-import { MailOutline } from '@material-ui/icons'
+import { MailOutline } from '@mui/icons-material'
 
 const Container = styled.div`
   padding: 1rem;
