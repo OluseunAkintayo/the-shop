@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { Button, Typography } from '@mui/material';
@@ -12,9 +12,9 @@ import { toast } from 'react-toastify';
 
 const CartWrapper = styled.section``;
 const CartContainer = styled.div`
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 7rem 1rem 1rem 1rem;
   max-width: 1200px;
-  min-height: calc(100vh - 193px);
+  min-height: calc(100vh - 133px);
   margin: 0 auto;
 `;
 const Title = styled.h1`
@@ -24,6 +24,7 @@ const Title = styled.h1`
 const CartProducts = styled.div`
   margin: 2rem auto 1rem auto;
   width: 100%;
+  height: 100%;
   @media(max-width: 400px) {
     overflow-x: auto;
   }
@@ -34,20 +35,27 @@ const Progress = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 1rem;
-  height: 22.5vh;
+  height: calc(100vh - 550px);
   width: 100%;
   position: relative;
   .emptyCartTxt {
     background: teal;
     outline: 1px solid teal;
     color: white;
-    width: 10rem;
+    width: 100%;
+    max-width: 250px;
+    height: 3rem;
     &:hover {
       background: white;
       color: teal;
       outline: 1px solid teal;
       border: none;
     }
+  }
+  h4 {
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-weight: 400;
   }
 `;
 const CartSummary = styled.div`
@@ -100,9 +108,12 @@ const Item = styled.div`
   padding: 0.25rem 0;
 `;
 
-const Cart = ({ cart, clear }) => {
+const Cart = ({ cart }) => {
   const [bagTotal, setBagTotal] = React.useState(0);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const clear = () => dispatch(clearCart());
 
   React.useEffect(() => {
     let total = 0;
@@ -125,7 +136,7 @@ const Cart = ({ cart, clear }) => {
           {
             cart.length === 0 ?
             <Progress>
-              <Typography>No items in cart</Typography>
+              <Typography variant="h4">No items in cart</Typography>
               <Button className="emptyCartTxt" onClick={() => navigate("/")}>Shop now</Button>
             </Progress> :
             cart.map(item => <CartItem key={item.id} item={item} toast={toast} />)
@@ -162,10 +173,5 @@ const mapStateToProps = state => {
     cart: state.shop.cart
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    clear: () => dispatch(clearCart()),
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps)(Cart);

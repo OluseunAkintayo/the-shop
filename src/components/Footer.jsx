@@ -4,7 +4,13 @@ import styled from "styled-components";
 const FooterContainer = styled.footer`
   color: rgba(0,0,0,0.7);
   background-color: rgba(0, 0, 0, 0.1);
+  display: grid;
+  place-items: center;
+`;
+const Wrapper = styled.div`
+  width: 100%;
   padding: 1rem;
+  max-width: 1200px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -12,7 +18,6 @@ const FooterContainer = styled.footer`
     flex-direction: column;
   }
 `;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,7 +55,7 @@ const SocialIcon = styled.div`
   }
 `;
 
-const Bottom = styled.div`
+const Side = styled.div`
   padding: 0.5rem 0;
   font-size: 0.8rem;
   a:hover {
@@ -61,23 +66,25 @@ const Bottom = styled.div`
 const Footer = () => {
   return(
     <FooterContainer>
-      <Container>
-        <Logo>The Shop</Logo>
-        <Socials>
-          <SocialIcon>
-            <Facebook />
-          </SocialIcon>
-          <SocialIcon>
-            <Twitter />
-          </SocialIcon>
-          <SocialIcon>
-            <Instagram />
-          </SocialIcon>
-        </Socials>
-      </Container>
-      <Bottom>
-        <p>Developed by<br /><a href="https://techydna.com">TechyDNA</a> &copy; { new Date().getFullYear() }</p>
-      </Bottom>
+      <Wrapper>
+        <Container>
+          <Logo>The Shop</Logo>
+          <Socials>
+            <SocialIcon>
+              <Facebook />
+            </SocialIcon>
+            <SocialIcon>
+              <Twitter />
+            </SocialIcon>
+            <SocialIcon>
+              <Instagram />
+            </SocialIcon>
+          </Socials>
+        </Container>
+        <Side>
+          <p>Developed by<br /><a href="https://techydna.com">TechyDNA</a> &copy; { new Date().getFullYear() }</p>
+        </Side>
+      </Wrapper>
     </FooterContainer>
   );
 };

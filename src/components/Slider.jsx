@@ -4,7 +4,7 @@ import { Carousel } from 'react-bootstrap';
 
 
 const Container = styled.section`
-  padding-bottom: 4rem;
+  padding-top: 4rem;
   @media(max-width: 625px) {
     position: relative;
     top: 60px;
@@ -34,7 +34,7 @@ const Container = styled.section`
 const Slide = styled.div`
   display: flex;
   align-items: center;
-  height: calc(70vh - 92px);
+  height: calc(80vh - 92px);
   width: 100vw;
   @media(max-width: 625px) {
     flex-direction: column;
@@ -68,14 +68,14 @@ const InfoWrapper = styled.div`
 `;
 
 const ItemTitle = styled.h1`
-  font-size: 3rem;
+  font-size: 1.5rem;
 `;
 
 const ItemInfo = styled.p`
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   letter-spacing: 1px;
-  font-weight: 500;
-  line-height: 1.75rem;
+  font-weight: 300;
+  line-height: 1.25rem;
 `;
 
 const Slider = () => {

@@ -45,18 +45,18 @@ const QtyContainer = styled.div`
   .qty-icons {
     background: teal;
     color: white;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
   }
 `;
 const Input = styled.input`
-  width: 2rem;
-  height: 1.75rem;
+  width: 3rem;
+  height: 2rem;
   text-align: center;
   outline: none;
   border: none;
-  background: rgba(0, 128, 128, 0.1);
+  background: rgba(0, 128, 128, 0.2);
 `;
 const ItemPrice = styled.div`
   flex: 1;

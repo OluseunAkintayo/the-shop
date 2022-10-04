@@ -37,6 +37,7 @@ const Container = styled.div`
     background-color: teal;
     color: #FFFFFF;
     border-radius: 0 0 0.25rem 0.25rem;
+    font-size: 0.75rem;
     &:hover {
       background-color: rgba(0,128,128, 0.7);
     }

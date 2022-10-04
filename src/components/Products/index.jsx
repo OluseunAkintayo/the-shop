@@ -7,7 +7,7 @@ import Product from './Product';
 import { getItems, setCart } from '../../redux/slice';
 
 const Container = styled.section`
-  padding: 1rem;
+  padding: 4rem 1rem 1rem 1rem;
 `;
 const Wrapper = styled.div`
   max-width: 1200px;

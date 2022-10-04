@@ -9,7 +9,7 @@ const initialState = {
 		},
 		item: {
 			loading: false,
-			data: [],
+			data: {},
 			error: null
 		},
 		cart: []
@@ -26,6 +26,13 @@ export const getItems = createAsyncThunk("items/getItems", async () => {
 	return data;
 });
 
+export const getItem = createAsyncThunk("items/getItem", async (id) => {
+	const productsUrl = `https://fakestoreapi.com/products/${id}`;
+	const res = await fetch(productsUrl);
+	const data = await res.json();
+	return data;
+});
+
 export const appSlice = createSlice({
 	name: 'appState',
 	initialState,
@@ -33,11 +40,8 @@ export const appSlice = createSlice({
 		setCart: (state, action) => {
 			state.shop.cart = action.payload
 		},
-		viewItem: (state, action) => {
-			state.item = action.payload
-		},
 		clearCart: (state) => {
-			state.cart = [];
+			state.shop.cart = [];
 		}
 	},
 	extraReducers: {
@@ -51,8 +55,18 @@ export const appSlice = createSlice({
 		[getItems.rejected]: state => {
 			state.shop.items.loading = false;
 		},
+		[getItem.pending]: state => {
+			state.shop.item.loading = true;
+		},
+		[getItem.fulfilled]: (state, action) => {
+			state.shop.item.data = action.payload;
+			state.shop.item.loading = false;
+		},
+		[getItem.rejected]: state => {
+			state.shop.item.loading = false;
+		},
 	}
 });
 
-export const { setCart, viewItem, removeFromCart, clearCart } = appSlice.actions;
+export const { setCart, clearCart } = appSlice.actions;
 export default appSlice.reducer;

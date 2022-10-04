@@ -89,17 +89,12 @@ const Links = styled.div`
 
 const NavContainer = styled.nav`
   height: 60px;
-  position: relative;
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-  @media(max-width: 625px) {
-    position: fixed;
-    z-index: 10;
-    background: #f5f5f5;
-    width: 100%;
-    ${RightContent}, ${MidContent} {
-      display: none;
-    }
-  }
+  position: fixed;
+  width: 100%;
+  background: #f5f5f5;
+  z-index: 10;
+  top: 0;
 `;
 
 
@@ -122,12 +117,6 @@ const Navbar = ({ bag, search }) => {
             <Logo>The Shop</Logo>
           </Link>
         </LeftContent>
-        <MidContent>
-          {/* <SearchComponent>
-            <Input type="text" placeholder='Search...' id="searchInput" />
-            <Search className='search-icon' name="" onClick={() => search("casual")} />
-          </SearchComponent> */}
-        </MidContent>
         <RightContent>
           <Link to="/cart">
             <LinkItem style={{ margin: '0 0.75rem' }}>
@@ -140,24 +129,6 @@ const Navbar = ({ bag, search }) => {
           {/* <Link to='/shop/auth'><LinkItem className='menu'>Login</LinkItem></Link>
           <Link to='/shop/register'><LinkItem className='menu'>Register</LinkItem></Link> */}
         </RightContent>
-        <MobileMenu>
-          <Link to="/cart">
-            <LinkItem style={{ margin: '0 0.75rem' }}>
-              <Badge badgeContent={Number(count)} color="secondary">
-                <ShoppingCart />
-              </Badge>
-            </LinkItem>
-          </Link>
-          {/* <LinkItem className='mobile-item' style={{ marginLeft: 10 }} onClick={() => setOpen(!open)}>
-            <Menu className='mobile-item' />
-          </LinkItem> */}
-          {/* <Links style={{ display: `${open ? "block" : "none"}` }} id="links">
-            <LinkItem className='mobile-item'>Lang: EN</LinkItem>
-            <Link to ='/'><LinkItem className='mobile-item'>Favorites</LinkItem></Link>
-            <Link to='/shop/auth'><LinkItem className='mobile-item'>Login</LinkItem></Link>
-            <Link to='/shop/register'><LinkItem className='mobile-item'>Register</LinkItem></Link>
-          </Links> */}
-        </MobileMenu>
       </Wrapper>
     </NavContainer>
   );
